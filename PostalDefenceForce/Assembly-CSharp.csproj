@@ -39,6 +39,7 @@
      <Compile Include="Assets\Scripts\AddForceOnCollision.cs" />
      <Compile Include="Assets\Scripts\Dialogue\Dialogue.cs" />
      <Compile Include="Assets\Scripts\EnemyAI.cs" />
+     <Compile Include="Assets\Scripts\EnemySpawner.cs" />
      <Compile Include="Assets\Scripts\Interaction\Interactable.cs" />
      <Compile Include="Assets\Scripts\Interaction\InteractableTrigger.cs" />
      <Compile Include="Assets\Scripts\Interaction\PlayerInteraction.cs" />
@@ -48,6 +49,7 @@
      <Compile Include="Assets\Scripts\Keybinding\Keybindings.cs" />
      <Compile Include="Assets\Scripts\PlayerAttack.cs" />
      <Compile Include="Assets\Scripts\PlayerMovement.cs" />
+     <Compile Include="Assets\Scripts\ResetPosition.cs" />
     <Reference Include="UnityEngine">
         <HintPath>C:/Program Files/Unity/Hub/Editor/2019.4.15f1/Editor/Data/Managed/UnityEngine/UnityEngine.dll</HintPath>
     </Reference>
