@@ -38,7 +38,7 @@ public class EnemyHealth : MonoBehaviour
         {
             StartCoroutine(Death(true));
         }
-        //Debug.Log(health);
+        Debug.Log(health);
     }
     IEnumerator Invincible()
     {

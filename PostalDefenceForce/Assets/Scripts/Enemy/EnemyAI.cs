@@ -7,6 +7,7 @@ public class EnemyAI : MonoBehaviour
     private Rigidbody rb;
     private Collider col;
     private GameObject targetObject;
+    private EnemyHealth enemyHealth;
     public bool stopMovement;
     ScoreManager scoreManager;
     float speed = 5;
@@ -23,6 +24,7 @@ public class EnemyAI : MonoBehaviour
         col = GetComponent<Collider>();
         targetObject = GameObject.Find("EnemyGoal");
         scoreManager = GameObject.Find("Game Manager").GetComponent<ScoreManager>();
+        enemyHealth = GetComponent<EnemyHealth>();
     }
     private void Update()//every frame
     {
@@ -47,6 +49,7 @@ public class EnemyAI : MonoBehaviour
         if(other.tag == "Weapon" && attacked == false)
         {
             StartCoroutine(Attacked());
+            enemyHealth.ChangeHealth(-1);
         }
         if(other.tag == "EnemyGoal" && !reachedGoal)
         {
@@ -67,7 +70,6 @@ public class EnemyAI : MonoBehaviour
     IEnumerator Attacked()
     {
         attacked = true;
-        print("Attacked Called");
         yield return new WaitForSeconds(2);
         attacked = false;
     }

@@ -8,10 +8,8 @@ public class AddForceOnCollision : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        print(other);
         if (other.CompareTag("Enemy"))
         {
-            print("Enemy");
             other.attachedRigidbody.AddForce(hitForce * (other.transform.position - transform.position).normalized, ForceMode.Impulse);
         }
     }

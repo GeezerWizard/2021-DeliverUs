@@ -6,7 +6,7 @@ public class PlayerAttack : MonoBehaviour
 {
 
     //References
-    Rigidbody rb;
+    private Rigidbody rb;
     public Transform attackObject;
     Transform parentTransform;
     Vector3 parentRotation;
@@ -34,7 +34,7 @@ public class PlayerAttack : MonoBehaviour
             //Vector2 direction = rb.velocity.normalized; //gets the direction
             //facingAngle = Vector2.SignedAngle(Vector2.up, direction); //transforms direction into an angle
             //Face the local facing angle directed by the PlayerMovement script
-            attackObject.localRotation = Quaternion.identity; 
+            attackObject.localRotation = Quaternion.identity;
         }
 
         if (Input.GetKeyDown(attackKey) && !hitCollider.enabled)

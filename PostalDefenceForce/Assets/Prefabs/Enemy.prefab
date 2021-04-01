@@ -87,8 +87,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 1, z: 0}
+  m_Size: {x: 1.29, y: 1.11, z: 1}
+  m_Center: {x: 0, y: 0.94, z: 0}
 --- !u!1001 &50300455268065493
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -195,6 +195,26 @@ PrefabInstance:
         type: 3}
       propertyPath: offset.x
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2629467928512094480, guid: d9612c83090530b4ea1504e393656445,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -0.079
+      objectReference: {fileID: 0}
+    - target: {fileID: 2629467928512094480, guid: d9612c83090530b4ea1504e393656445,
+        type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.7314158
+      objectReference: {fileID: 0}
+    - target: {fileID: 2629467928512094480, guid: d9612c83090530b4ea1504e393656445,
+        type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.8904476
+      objectReference: {fileID: 0}
+    - target: {fileID: 2629467928512094480, guid: d9612c83090530b4ea1504e393656445,
+        type: 3}
+      propertyPath: m_LocalScale.z
+      value: 0.79518455
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 2591547100112096130, guid: d9612c83090530b4ea1504e393656445, type: 3}
