@@ -6,6 +6,6 @@ public class ResetPosition : MonoBehaviour
     void Start()
     {
         transform.position = resetPosition;
-        print(transform.gameObject + " position reset to " + resetPosition);
+//        print(transform.gameObject + " position reset to " + resetPosition);
     }
 }
