@@ -12,10 +12,10 @@ public class PlayerMovement : MonoBehaviour
     float xMov;
     float zMov;
     float facingAngle;
-    float lastFacingAngle;
+    bool isUsingMouse = true;
+    bool lockFacingToMovement = false;
 
     //References
-    [SerializeField]
     Rigidbody rb;
     public Transform objectToRotate;
 
@@ -26,9 +26,14 @@ public class PlayerMovement : MonoBehaviour
     KeyCode leftKey = KeyCode.A;
     KeyCode runKey = KeyCode.LeftShift;
 
+    //Mouse Control Variables
+    Plane plane;
+    Vector3 mouseWorldPosition;
+
     void Start()
     {
         rb = GetComponent<Rigidbody>();
+        plane = new Plane(Vector3.up, 0);
     }
 
     void Update()
@@ -38,35 +43,51 @@ public class PlayerMovement : MonoBehaviour
             runSpeedMultiplier = runSpeed;
         }
         else { runSpeedMultiplier = 1; }
+
         //vertical controls
         if(Input.GetKey(upKey))
         {
-            zMov = 1;
+            zMov = -1;
         }
         else if (Input.GetKey(downKey))
         {
-            zMov = -1;
+            zMov = 1;
         }
         else { zMov = 0; }
+
         //horizontal controls
         if (Input.GetKey(rightKey))
         {
-            xMov = 1;
+            xMov = -1;
         }
         else if (Input.GetKey(leftKey))
         {
-            xMov = -1;
+            xMov = 1;
         }
         else { xMov = 0; }
+
         //Sets the direction for movement
         movement = new Vector3(xMov, 0, zMov);
-        //Sets the facing angle to the object
-        if(movement != Vector3.zero)
+
+        if(isUsingMouse)
         {
-            facingAngle = Vector3.SignedAngle(Vector3.forward, movement, Vector3.up);
+            float distance = 0f;
+            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+            if (plane.Raycast(ray, out distance))
+            {
+                mouseWorldPosition = ray.GetPoint(distance);
+            }
+            Vector3 facingDirection = mouseWorldPosition - objectToRotate.position;
+            facingAngle = Vector3.SignedAngle(Vector3.forward, facingDirection, Vector3.up);
             objectToRotate.rotation = Quaternion.Euler(0, facingAngle, 0);
         }
 
+        //Sets the facing angle to the object
+        if(movement != Vector3.zero && lockFacingToMovement)
+        {
+            facingAngle = Vector3.SignedAngle(Vector3.forward, movement, Vector3.up);
+            objectToRotate.rotation = Quaternion.Euler(0, facingAngle, 0);
+        }            
     }
     private void FixedUpdate()
     {

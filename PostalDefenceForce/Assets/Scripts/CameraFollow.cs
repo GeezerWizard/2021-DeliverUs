@@ -8,6 +8,7 @@ public class CameraFollow : MonoBehaviour
     public Vector3 posOffset;
     void FixedUpdate()
     {
-        transform.position = objectToFollow.position + posOffset;
+        transform.position = objectToFollow.position + posOffset; //smoothing
+        transform.LookAt(objectToFollow.position);
     }
 }

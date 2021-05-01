@@ -4,17 +4,20 @@ using UnityEngine;
 
 public class EnemyHealth : MonoBehaviour
 {
-    EnemyAI ai;
-    Rigidbody rb;
-    ScoreManager sm;
+    public GameObject legsToHide;
+    public Transform mainBody;
+    private Vector3 originalMainBodyPosition;
+    private Rigidbody rb;
+    private ScoreManager sm;
+    private EnemyAI ai;
     int health = 3;
-    float instantInvincibility = 0.25f;
+    float onHitInvincibleTime = 0.25f;
     float falloverTime = 0.5f;
     float invincibleTime = 2f;
     bool isInvincible;
     bool isDead = false;
-    int defaultDrag = 8;
-    int dragModifier = 4;
+    int defaultDrag = 3;
+    int dragModifier = 25;
     void Awake()
     {
         ai = GetComponent<EnemyAI>();
@@ -22,6 +25,7 @@ public class EnemyHealth : MonoBehaviour
         sm = GameObject.Find("Game Manager").GetComponent<ScoreManager>();
         rb.drag = defaultDrag;
         isInvincible = false;
+        originalMainBodyPosition = mainBody.localPosition;
     }
     public void ChangeHealth(int amount)
     {
@@ -36,29 +40,55 @@ public class EnemyHealth : MonoBehaviour
 
         if(health <= 0 && !isDead)
         {
-            StartCoroutine(Death(true));
+            StartCoroutine(Death());
         }
         Debug.Log(health);
     }
     IEnumerator Invincible()
     {
         isInvincible = true;
-        yield return new WaitForSeconds(instantInvincibility);
+        yield return new WaitForSeconds(onHitInvincibleTime);
+
         isInvincible = false;
         yield return new WaitForSeconds(falloverTime);
-        rb.drag = rb.drag * dragModifier;
+        
+        SetDrag(defaultDrag * dragModifier);
         isInvincible = true;
+        SetBodyCrouch(true);
         yield return new WaitForSeconds(invincibleTime - falloverTime);
-        rb.drag = defaultDrag;
+        
+        SetDrag(defaultDrag);
         isInvincible = false;
+        SetBodyCrouch(false);
+
         yield return null;
     }
-    IEnumerator Death(bool status)
+    IEnumerator Death()
     {
-        isDead = status;
+        isDead = true;
         sm.AddEnemiesDefeated();
         ai.enabled = false;
         yield return new WaitForSeconds(falloverTime);
-        rb.drag = defaultDrag * dragModifier;
+        
+        SetDrag(defaultDrag);
+        legsToHide.SetActive(false);
+        rb.constraints = RigidbodyConstraints.None;
+    }
+
+    public void SetDrag(float amount)
+    {
+        rb.drag = amount;
+        rb.angularDrag = amount;
+    }
+    public void SetBodyCrouch(bool crouch)
+    {
+        if (crouch)
+        {
+            mainBody.localPosition = originalMainBodyPosition - new Vector3(0, 0.5f, 0);
+        }
+        if (!crouch)
+        {
+            mainBody.localPosition = originalMainBodyPosition;
+        }
     }
 }
