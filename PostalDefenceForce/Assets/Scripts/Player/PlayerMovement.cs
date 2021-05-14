@@ -7,17 +7,19 @@ public class PlayerMovement : MonoBehaviour
     //Values
     public float walkSpeed;
     public float runSpeed;
+    public float turnSpeed;
     float runSpeedMultiplier;
     Vector3 movement;
     float xMov;
     float zMov;
     float facingAngle;
-    bool isUsingMouse = true;
-    bool lockFacingToMovement = false;
+    bool isUsingMouse = false;
+    bool lockFacingToMovement = true;
 
     //References
     Rigidbody rb;
     public Transform objectToRotate;
+    private CarryObject carryObject;
 
     //Directional Movement Key Remapping
     KeyCode upKey= KeyCode.W;
@@ -25,6 +27,7 @@ public class PlayerMovement : MonoBehaviour
     KeyCode rightKey = KeyCode.D;
     KeyCode leftKey = KeyCode.A;
     KeyCode runKey = KeyCode.LeftShift;
+    KeyCode carryKey = KeyCode.Space;
 
     //Mouse Control Variables
     Plane plane;
@@ -34,10 +37,11 @@ public class PlayerMovement : MonoBehaviour
     {
         rb = GetComponent<Rigidbody>();
         plane = new Plane(Vector3.up, 0);
+        carryObject = GetComponentInChildren<CarryObject>();
     }
 
     void Update()
-    {        
+    {
         if(Input.GetKey(runKey))
         {
             runSpeedMultiplier = runSpeed;
@@ -69,6 +73,15 @@ public class PlayerMovement : MonoBehaviour
         //Sets the direction for movement
         movement = new Vector3(xMov, 0, zMov);
 
+        if (Input.GetKeyDown(carryKey))
+        {
+            carryObject.Carry();
+        }
+        if (Input.GetKeyUp(carryKey))
+        {
+            carryObject.Drop();
+        }
+
         if(isUsingMouse)
         {
             float distance = 0f;
@@ -85,8 +98,9 @@ public class PlayerMovement : MonoBehaviour
         //Sets the facing angle to the object
         if(movement != Vector3.zero && lockFacingToMovement)
         {
+            Vector3 currentFacingRotation = objectToRotate.rotation.eulerAngles;
             facingAngle = Vector3.SignedAngle(Vector3.forward, movement, Vector3.up);
-            objectToRotate.rotation = Quaternion.Euler(0, facingAngle, 0);
+            objectToRotate.rotation = Quaternion.Lerp(objectToRotate.rotation, Quaternion.Euler(0, facingAngle, 0), Time.time * turnSpeed * 0.01f);
         }            
     }
     private void FixedUpdate()

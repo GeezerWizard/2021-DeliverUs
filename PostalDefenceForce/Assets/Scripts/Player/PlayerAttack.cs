@@ -65,7 +65,7 @@ public class PlayerAttack : MonoBehaviour
             }
             else if (holdTimer >= secondsForMediumAttack)
             {
-                swingAngleModifier = 12;
+                swingAngleModifier = 15;
             }
             else { swingAngleModifier = 0;}
         }
