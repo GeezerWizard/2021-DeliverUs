@@ -21,14 +21,6 @@ public class PlayerMovement : MonoBehaviour
     public Transform objectToRotate;
     private CarryObject carryObject;
 
-    //Directional Movement Key Remapping
-    KeyCode upKey= KeyCode.W;
-    KeyCode downKey = KeyCode.S;
-    KeyCode rightKey = KeyCode.D;
-    KeyCode leftKey = KeyCode.A;
-    KeyCode runKey = KeyCode.LeftShift;
-    KeyCode carryKey = KeyCode.Space;
-
     //Mouse Control Variables
     Plane plane;
     Vector3 mouseWorldPosition;
@@ -42,29 +34,29 @@ public class PlayerMovement : MonoBehaviour
 
     void Update()
     {
-        if(Input.GetKey(runKey))
+        if(Input.GetKey(PlayerControls.runKey))
         {
             runSpeedMultiplier = runSpeed;
         }
         else { runSpeedMultiplier = 1; }
 
         //vertical controls
-        if(Input.GetKey(upKey))
+        if(Input.GetKey(PlayerControls.upKey))
         {
             zMov = -1;
         }
-        else if (Input.GetKey(downKey))
+        else if (Input.GetKey(PlayerControls.downKey))
         {
             zMov = 1;
         }
         else { zMov = 0; }
 
         //horizontal controls
-        if (Input.GetKey(rightKey))
+        if (Input.GetKey(PlayerControls.rightKey))
         {
             xMov = -1;
         }
-        else if (Input.GetKey(leftKey))
+        else if (Input.GetKey(PlayerControls.leftKey))
         {
             xMov = 1;
         }
@@ -73,11 +65,11 @@ public class PlayerMovement : MonoBehaviour
         //Sets the direction for movement
         movement = new Vector3(xMov, 0, zMov);
 
-        if (Input.GetKeyDown(carryKey))
+        if (Input.GetKeyDown(PlayerControls.carryKey))
         {
             carryObject.Carry();
         }
-        if (Input.GetKeyUp(carryKey))
+        if (Input.GetKeyUp(PlayerControls.carryKey))
         {
             carryObject.Drop();
         }
