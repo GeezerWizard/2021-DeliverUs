@@ -65,14 +65,14 @@ public class PlayerMovement : MonoBehaviour
         //Sets the direction for movement
         movement = new Vector3(xMov, 0, zMov);
 
-        if (Input.GetKeyDown(PlayerControls.carryKey))
+        /*if (Input.GetKeyDown(PlayerControls.carryKey))
         {
             carryObject.Carry();
         }
         if (Input.GetKeyUp(PlayerControls.carryKey))
         {
             carryObject.Drop();
-        }
+        }*/
 
         if(isUsingMouse)
         {

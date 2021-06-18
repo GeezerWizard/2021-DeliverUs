@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class CarryObject : MonoBehaviour
 {
+    public string objectTag;
     [SerializeField]
     private GameObject highlightedObject;
     private GameObject carriedObject;
@@ -13,6 +14,13 @@ public class CarryObject : MonoBehaviour
     private bool carryingObject;
     public Material highlightMat;
     public Mesh highLightMesh;
+
+    private void Start() {
+        if (objectTag == null)
+        {
+            Debug.Log("Carryable object tag not set.");
+        }
+    }
 
     private void Update()
     {
@@ -28,7 +36,7 @@ public class CarryObject : MonoBehaviour
     }
     private void OnTriggerEnter(Collider col)
     {
-        if (col.tag == "Carryable")
+        if (col.tag == objectTag)
         {
             detectedObjects.Add(col.gameObject);
             if (!objectIsHighlighted)
@@ -41,7 +49,7 @@ public class CarryObject : MonoBehaviour
 
     private void OnTriggerExit(Collider col)
     {
-        if (col.tag == "Carryable")
+        if (col.tag == objectTag)
         {
             detectedObjects.Remove(col.gameObject);
             if (col.gameObject == highlightedObject)

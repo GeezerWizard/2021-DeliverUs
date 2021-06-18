@@ -13,7 +13,7 @@ public class MoveAlongCollider : MonoBehaviour
         //col.attachedRigidbody.AddForce(moveDirection * movementForce, ForceMode.VelocityChange);
         if (col.tag == "Carryable")
         {
-            col.transform.position += moveDirection/50;
+            col.transform.localPosition += moveDirection/50;
         }
     }
 }
