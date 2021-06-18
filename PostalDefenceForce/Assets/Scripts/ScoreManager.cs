@@ -5,6 +5,7 @@ using UnityEngine.UI;
 
 public class ScoreManager : MonoBehaviour
 {
+    // Refactor enemy references with packages
     float totalEnemies;
     int enemiesEscaped;
     int enemiesDefeated;

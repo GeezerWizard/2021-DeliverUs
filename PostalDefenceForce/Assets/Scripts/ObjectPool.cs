@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class ObjectPool : MonoBehaviour
 {
+    // Limits the amount of objects that can be spawned per frame
+    // Performance optimisation
     public int objectsToSpawnPerFrame = 2;
     public int targetObjectsToSpawn = 200;
     public GameObject objectToPool;
